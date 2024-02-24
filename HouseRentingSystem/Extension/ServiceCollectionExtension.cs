@@ -13,7 +13,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddAppLicationDbContext(this IServiceCollection services, IConfiguration config)
     { // Add services to the container.
         var connectionString = config.GetConnectionString("DefaultConnection");
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddDbContext<HouseRentingDbContext>(options =>
             options.UseSqlServer(connectionString));
                
         services.AddDatabaseDeveloperPageExceptionFilter();
@@ -23,7 +23,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
     {
         services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<HouseRentingDbContext>();
 
         return services;
     }
