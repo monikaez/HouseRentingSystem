@@ -15,15 +15,22 @@ public static class ServiceCollectionExtension
         var connectionString = config.GetConnectionString("DefaultConnection");
         services.AddDbContext<HouseRentingDbContext>(options =>
             options.UseSqlServer(connectionString));
-               
+
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         return services;
     }
     public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
     {
-        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<HouseRentingDbContext>();
+        services
+            .AddDefaultIdentity<IdentityUser>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+        })
+            .AddEntityFrameworkStores<HouseRentingDbContext>();
 
         return services;
     }
