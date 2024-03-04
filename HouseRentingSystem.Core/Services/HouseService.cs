@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Core.Contracts.House;
+﻿using HouseRentingSystem.Core.Contracts;
 using HouseRentingSystem.Core.Models.Home;
 using HouseRentingSystem.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HouseRentingSystem.Core.Services.House
+namespace HouseRentingSystem.Core.Services
 {
     public class HouseService : IHouseService
     {
@@ -19,7 +19,7 @@ namespace HouseRentingSystem.Core.Services.House
             this.repository = repository;
         }
 
-        public  async Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
+        public async Task<IEnumerable<HouseIndexServiceModel>> LastThreeHouses()
         {
             return await repository
                 .AllReadOnly<Infrastructure.Data.Models.House>()
@@ -27,9 +27,9 @@ namespace HouseRentingSystem.Core.Services.House
                 .Take(3)
                 .Select(h => new HouseIndexServiceModel()
                 {
-                    Id=h.Id,
-                    ImageUrl=h.ImageUrl,
-                    Title=h.Title
+                    Id = h.Id,
+                    ImageUrl = h.ImageUrl,
+                    Title = h.Title
                 })
                 .ToListAsync();
         }
