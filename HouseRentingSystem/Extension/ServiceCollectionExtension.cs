@@ -21,6 +21,7 @@ public static class ServiceCollectionExtension
             options.UseSqlServer(connectionString));
 
         services.AddScoped<IRepository, Repository>();
+        services.AddScoped<IAgentService, AgentService>();
 
         services.AddDatabaseDeveloperPageExceptionFilter();
 
